@@ -6,11 +6,13 @@
 #'
 #' @param project_name The name of the project to create.
 #' @param github Logical, whether to create a GitHub repository and push the project.
+#' @param apa7 Logical, whether to use the APA 7th edition template (default is FALSE, using APA 6th edition).
+#' @param public_repo Logical, whether the GitHub repository should be public (default is FALSE, making it private).
 #' @export
 #' @importFrom usethis create_project
 #' @importFrom gh gh gh_token
 #' @importFrom rmarkdown draft
-template_git <- function(project_name, github = TRUE) {
+template_git <- function(project_name, github = TRUE, apa7 = FALSE, public_repo = FALSE) {
   message("Starting project creation for: ", project_name)
 
   original_dir <- getwd()
@@ -26,12 +28,18 @@ template_git <- function(project_name, github = TRUE) {
   create_readme(project_name)
   create_description(project_name)
 
-  rmarkdown::draft("manuscript.Rmd", template = "apa6", package = "papaja", edit = FALSE)
-  message("Created manuscript.Rmd")
+  # Copy the appropriate manuscript template
+  if (apa7) {
+    file.copy(system.file("template/apa7_template.Rmd", package = "psychtemplate"), "manuscript.Rmd")
+    message("Created manuscript.Rmd using APA 7 template")
+  } else {
+    rmarkdown::draft("manuscript.Rmd", template = "apa6", package = "papaja", edit = FALSE)
+    message("Created manuscript.Rmd using APA 6 template")
+  }
 
   if (github) {
     tryCatch({
-      create_github_repo(project_name)
+      create_github_repo(project_name, public_repo)
       message("Successfully pushed project to GitHub")
     }, error = function(e) {
       message("An error occurred: ", e$message)
@@ -87,8 +95,9 @@ create_description <- function(project_name) {
 #' Create GitHub repository and push the project
 #'
 #' @param project_name The name of the project.
+#' @param public_repo Logical, whether the GitHub repository should be public.
 #' @keywords internal
-create_github_repo <- function(project_name) {
+create_github_repo <- function(project_name, public_repo = FALSE) {
   token <- gh::gh_token()
   if (token == "") {
     stop("GitHub token not found. Please set up GitHub authentication.")
@@ -97,7 +106,7 @@ create_github_repo <- function(project_name) {
   user <- gh::gh("/user")
   username <- user$login
 
-  repo <- gh::gh("POST /user/repos", name = project_name, private = TRUE, auto_init = FALSE)
+  repo <- gh::gh("POST /user/repos", name = project_name, private = !public_repo, auto_init = FALSE)
   repo_url <- repo$html_url
   message("Created empty GitHub repository: ", repo_url)
 

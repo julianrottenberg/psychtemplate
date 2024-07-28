@@ -4,12 +4,16 @@
 \alias{template_git}
 \title{Create a psychology research project template}
 \usage{
-template_git(project_name, github = TRUE)
+template_git(project_name, github = TRUE, apa7 = FALSE, public_repo = FALSE)
 }
 \arguments{
 \item{project_name}{The name of the project to create.}
 
 \item{github}{Logical, whether to create a GitHub repository and push the project.}
+
+\item{apa7}{Logical, whether to use the APA 7th edition template (default is FALSE, using APA 6th edition).}
+
+\item{public_repo}{Logical, whether the GitHub repository should be public (default is FALSE, making it private).}
 }
 \description{
 This function creates a new psychology research project with a predefined structure,

@@ -4,10 +4,12 @@
 \alias{create_github_repo}
 \title{Create GitHub repository and push the project}
 \usage{
-create_github_repo(project_name)
+create_github_repo(project_name, public_repo = FALSE)
 }
 \arguments{
 \item{project_name}{The name of the project.}
+
+\item{public_repo}{Logical, whether the GitHub repository should be public.}
 }
 \description{
 Create GitHub repository and push the project

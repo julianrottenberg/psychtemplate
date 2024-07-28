@@ -18,11 +18,21 @@ To create a new psychology research project:
 ```r
 library(psychtemplate)
 
-# Create a new project with GitHub integration
+# Create a new project with GitHub integration (default: private repository, APA 6 template)
 template_git("MyNewProject", github = TRUE)
 
 # Create a new project without GitHub integration
 template_git("LocalProject", github = FALSE)
+
+# Create a new project with GitHub integration and APA 7 template
+template_git("MyNewProjectAPA7", github = TRUE, apa7 = TRUE)
+
+# Create a new project with GitHub integration and public repository
+template_git("PublicProject", github = TRUE, public_repo = TRUE)
+
+# Create a new project with GitHub integration, APA 7 template, and public repository
+template_git("PublicAPA7Project", github = TRUE, apa7 = TRUE, public_repo = TRUE)
+
 ```
 
 This will create a new project with the following structure:
