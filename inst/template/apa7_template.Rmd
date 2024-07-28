@@ -69,7 +69,7 @@ header-includes:
     \makeatother
     \setlength{\cslhangindent}{0.5in}
 
-csl               : "`r system.file('rmd', 'apa7-annotated.csl', package = 'papaja')`"
+csl               : "`r system.file('rmd', 'apa7.csl', package = 'papaja')`"
 documentclass     : "apa7"
 classoption       : "man"
 output            : papaja::apa6_pdf
