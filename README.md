@@ -38,7 +38,7 @@ If `github = TRUE`, it will also initialize a Git repository, create a private G
 ## Requirements
 
 - A GitHub account and personal access token (for GitHub integration)
-- The `papaja` package (for creating APA style manuscripts)
+- The [`papaja`](https://github.com/crsh/papaja/) package (for creating APA style manuscripts)
 
 ## License
 
